@@ -1,5 +1,7 @@
 <img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
+<div style="max-width: 900px; margin: 0 auto; padding: 20px 40px;">
+
 # give me java interview questions ,,, frehers ,,, top 30 ,, basic to advance
 
 Here’s a tight, no-fluff Top 30 Java interview questions set from basic to advanced, ordered so a fresher can warm up, then get grilled. If any of this feels unfamiliar, that’s a skill gap—fix it before interviews ⚠️🔥
@@ -362,23 +364,10 @@ Day 3: Q21–25 (implement custom HashMap bucket collision, stream pipelines) �
 Day 4: Q26–30 (write deadlock demo, fix with lock ordering; profile with VisualVM) ✅
 
 Mock yourself daily: pick 5 random Qs, answer out loud in <2 min each. If you stutter or ramble, redo until you nail it in one breath. Interviews reward **precision + examples + trade-offs**, not textbook parroting. 🔥🚀
+
+</div>
+
 <span style="display:none">[^2_1][^2_2][^2_3][^2_4][^2_5][^2_6][^2_7][^2_8]</span>
 
 <div align="center">⁂</div>
-
-[^2_1]: https://codefinity.com/blog/The-80-Top-Java-Interview-Questions-and-Answers
-
-[^2_2]: https://www.interviewbit.com/java-interview-questions/
-
-[^2_3]: https://www.geeksforgeeks.org/java/java-interview-questions/
-
-[^2_4]: https://www.guvi.in/blog/40-java-interview-questions-for-freshers/
-
-[^2_5]: https://www.youtube.com/watch?v=EsBUD8nuVeE
-
-[^2_6]: https://www.codingshuttle.com/blog/top-10-java-8-interview-questions
-
-[^2_7]: https://www.javacodegeeks.com/java-interview-questions.html
-
-[^2_8]: https://www.frgconsulting.com/insights/java-interview-questions
 
