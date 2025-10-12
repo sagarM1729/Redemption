@@ -1,3 +1,5 @@
+<div style="max-width: 1100px; margin: 0 auto; padding: 24px 48px; box-sizing: border-box;">
+
 <img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
 <div style="max-width: 900px; margin: 0 auto; padding: 20px 40px;">
@@ -365,9 +367,12 @@ Day 4: Q26–30 (write deadlock demo, fix with lock ordering; profile with Visua
 
 Mock yourself daily: pick 5 random Qs, answer out loud in <2 min each. If you stutter or ramble, redo until you nail it in one breath. Interviews reward **precision + examples + trade-offs**, not textbook parroting. 🔥🚀
 
+
 </div>
 
 <span style="display:none">[^2_1][^2_2][^2_3][^2_4][^2_5][^2_6][^2_7][^2_8]</span>
 
 <div align="center">⁂</div>
+
+</div>
 
