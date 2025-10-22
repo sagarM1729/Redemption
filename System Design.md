@@ -1635,3 +1635,817 @@ Standard API? → REST
 
 Or ready to move to **Phase 2: Advanced Topics** (caching strategies, database indexing, monitoring)? 📈
 
+---
+
+# PHASE 2: Low-Level Design (OOP Focus for Freshers) 🎨
+
+***
+
+## 5. OOP & Design Patterns 🛠️💪
+
+Alright, listen up! 🔥 This is where **freshers get DESTROYED** in interviews. You know what classes and objects are? Cool. But can you design **maintainable, scalable code**? That's what separates amateurs from pros 😤. Let's crush this!
+
+***
+
+## SOLID Principles 🏛️⚡
+
+These are the **5 commandments** of clean OOP code. Break them? Your code becomes unmaintainable garbage 🗑️. Follow them? Your interviewer will be impressed 💪.
+
+***
+
+### 1. Single Responsibility Principle (SRP) 📝
+
+**Rule:** A class should have **ONE reason to change**. ONE job. That's it.
+
+**❌ BAD CODE:**
+```java
+// This class does TOO MUCH - violates SRP! 💀
+class User {
+      private String name;
+      private String email;
+    
+      // User data - OK ✅
+      public void setName(String name) {
+            this.name = name;
+      }
+    
+      // Database logic - WRONG! ❌
+      public void saveToDatabase() {
+            // DB connection, SQL queries...
+      }
+    
+      // Email logic - WRONG! ❌
+      public void sendWelcomeEmail() {
+            // SMTP connection, email sending...
+      }
+    
+      // Validation logic - WRONG! ❌
+      public boolean validateEmail() {
+            // Regex validation...
+            return email.contains("@");
+      }
+}
+```
+
+**Why it sucks:** 💩
+- Change database? Modify User class
+- Change email service? Modify User class  
+- Change validation rules? Modify User class
+- **Too many reasons to change!**
+
+---
+
+**✅ GOOD CODE:**
+```java
+// User class - ONLY holds user data ✅
+class User {
+      private String name;
+      private String email;
+    
+      public User(String name, String email) {
+            this.name = name;
+            this.email = email;
+      }
+    
+      public String getName() { return name; }
+      public String getEmail() { return email; }
+}
+
+// Separate class for database operations 🗄️
+class UserRepository {
+      public void save(User user) {
+            // Database logic here
+            System.out.println("Saving user to DB: " + user.getName());
+      }
+}
+
+// Separate class for email operations 📧
+class EmailService {
+      public void sendWelcomeEmail(User user) {
+            // Email sending logic here
+            System.out.println("Sending email to: " + user.getEmail());
+      }
+}
+
+// Separate class for validation 🔒
+class UserValidator {
+      public boolean isValidEmail(String email) {
+            return email != null && email.contains("@");
+      }
+}
+
+// Usage 🎯
+class Main {
+      public static void main(String[] args) {
+            UserValidator validator = new UserValidator();
+        
+            if (validator.isValidEmail("test@example.com")) {
+                  User user = new User("John", "test@example.com");
+                  UserRepository repo = new UserRepository();
+                  EmailService emailService = new EmailService();
+            
+                  repo.save(user);
+                  emailService.sendWelcomeEmail(user);
+            }
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- Change DB? Only touch `UserRepository`
+- Change email? Only touch `EmailService`
+- Each class has **ONE reason to change!**
+
+***
+
+### 2. Open/Closed Principle (OCP) 🚪🔒
+
+**Rule:** Classes should be **open for extension**, **closed for modification**.
+
+**Translation:** Add new features WITHOUT changing existing code! 🎯
+
+**❌ BAD CODE:**
+```java
+// Every new shape = modify this class! 💀
+class AreaCalculator {
+      public double calculateArea(Object shape) {
+            if (shape instanceof Circle) {
+                  Circle circle = (Circle) shape;
+                  return Math.PI * circle.radius * circle.radius;
+            } else if (shape instanceof Rectangle) {
+                  Rectangle rect = (Rectangle) shape;
+                  return rect.length * rect.width;
+            }
+            return 0;
+      }
+}
+```
+
+**Why it sucks:** Every new shape forces you to modify `AreaCalculator` 💩
+
+***
+
+**✅ GOOD CODE:**
+```java
+abstract class Shape {
+      public abstract double calculateArea();
+}
+
+class Circle extends Shape {
+      private double radius;
+    
+      public Circle(double radius) {
+            this.radius = radius;
+      }
+    
+      @Override
+      public double calculateArea() {
+            return Math.PI * radius * radius;
+      }
+}
+
+class Rectangle extends Shape {
+      private double length;
+      private double width;
+    
+      public Rectangle(double length, double width) {
+            this.length = length;
+            this.width = width;
+      }
+    
+      @Override
+      public double calculateArea() {
+            return length * width;
+      }
+}
+
+class Triangle extends Shape {
+      private double base;
+      private double height;
+    
+      public Triangle(double base, double height) {
+            this.base = base;
+            this.height = height;
+      }
+    
+      @Override
+      public double calculateArea() {
+            return 0.5 * base * height;
+      }
+}
+
+class AreaCalculator {
+      public double calculateArea(Shape shape) {
+            return shape.calculateArea();
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            AreaCalculator calculator = new AreaCalculator();
+        
+            Shape circle = new Circle(5);
+            Shape rectangle = new Rectangle(4, 6);
+            Shape triangle = new Triangle(3, 7);
+        
+            System.out.println("Circle area: " + calculator.calculateArea(circle));
+            System.out.println("Rectangle area: " + calculator.calculateArea(rectangle));
+            System.out.println("Triangle area: " + calculator.calculateArea(triangle));
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- Add Pentagon? Just extend `Shape`
+- `AreaCalculator` never changes ✅
+- **Open for extension, closed for modification!** 💪
+
+***
+
+### 3. Liskov Substitution Principle (LSP) 🔄
+
+**Rule:** Subclasses should be **replaceable** with their parent class without breaking code.
+
+**Translation:** If it inherits from Bird, it MUST fly (or redesign your hierarchy)! 🦅
+
+**❌ BAD CODE:**
+```java
+class Bird {
+      public void fly() {
+            System.out.println("Flying...");
+      }
+}
+
+class Penguin extends Bird {
+      @Override
+      public void fly() {
+            throw new UnsupportedOperationException("Penguins can't fly!");
+      }
+}
+
+class Main {
+      public static void makeBirdFly(Bird bird) {
+            bird.fly();
+      }
+    
+      public static void main(String[] args) {
+            Bird eagle = new Bird();
+            Bird penguin = new Penguin();
+        
+            makeBirdFly(eagle);
+            makeBirdFly(penguin); // 💥
+      }
+}
+```
+
+***
+
+**✅ GOOD CODE:**
+```java
+abstract class Bird {
+      public abstract void move();
+}
+
+interface Flyable {
+      void fly();
+}
+
+class Eagle extends Bird implements Flyable {
+      @Override
+      public void move() {
+            fly();
+      }
+    
+      @Override
+      public void fly() {
+            System.out.println("Eagle soaring high! 🦅");
+      }
+}
+
+class Penguin extends Bird {
+      @Override
+      public void move() {
+            swim();
+      }
+    
+      public void swim() {
+            System.out.println("Penguin swimming! 🐧");
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            Bird eagle = new Eagle();
+            Bird penguin = new Penguin();
+        
+            eagle.move();
+            penguin.move();
+        
+            if (eagle instanceof Flyable flyable) {
+                  flyable.fly();
+            }
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- Every `Bird` can `move()`
+- No unexpected exceptions
+- Hierarchy makes sense!
+
+***
+
+### 4. Interface Segregation Principle (ISP) 🧩
+
+**Rule:** Don't force classes to implement methods they don't need!
+
+**Translation:** Many small interfaces > One fat interface 🎯
+
+**❌ BAD CODE:**
+```java
+interface Worker {
+      void work();
+      void eat();
+      void sleep();
+      void getSalary();
+}
+
+class HumanWorker implements Worker {
+      public void work() { System.out.println("Human working"); }
+      public void eat() { System.out.println("Human eating"); }
+      public void sleep() { System.out.println("Human sleeping"); }
+      public void getSalary() { System.out.println("Getting salary"); }
+}
+
+class RobotWorker implements Worker {
+      public void work() { System.out.println("Robot working"); }
+      public void eat() { throw new UnsupportedOperationException(); }
+      public void sleep() { throw new UnsupportedOperationException(); }
+      public void getSalary() { throw new UnsupportedOperationException(); }
+}
+```
+
+***
+
+**✅ GOOD CODE:**
+```java
+interface Workable {
+      void work();
+}
+
+interface Eatable {
+      void eat();
+}
+
+interface Sleepable {
+      void sleep();
+}
+
+interface Payable {
+      void getSalary();
+}
+
+class HumanWorker implements Workable, Eatable, Sleepable, Payable {
+      public void work() { System.out.println("Human working"); }
+      public void eat() { System.out.println("Human eating"); }
+      public void sleep() { System.out.println("Human sleeping"); }
+      public void getSalary() { System.out.println("Getting salary"); }
+}
+
+class RobotWorker implements Workable {
+      public void work() { System.out.println("Robot working 24/7"); }
+}
+
+class Main {
+      public static void main(String[] args) {
+            Workable human = new HumanWorker();
+            Workable robot = new RobotWorker();
+        
+            human.work();
+            robot.work();
+        
+            if (human instanceof Eatable eatable) {
+                  eatable.eat();
+            }
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- Classes implement **only what they need**
+- No fake implementations
+- Clean, focused interfaces!
+
+***
+
+### 5. Dependency Inversion Principle (DIP) 🔄⬆️
+
+**Rule:** High-level modules shouldn't depend on low-level modules. **Both should depend on abstractions!**
+
+**Translation:** Code to interfaces, not concrete classes! 🎯
+
+**❌ BAD CODE:**
+```java
+class MySQLDatabase {
+      public void save(String data) {
+            System.out.println("Saving to MySQL: " + data);
+      }
+}
+
+class UserService {
+      private MySQLDatabase database = new MySQLDatabase();
+    
+      public void saveUser(String user) {
+            database.save(user);
+      }
+}
+```
+
+***
+
+**✅ GOOD CODE:**
+```java
+interface Database {
+      void save(String data);
+}
+
+class MySQLDatabase implements Database {
+      @Override
+      public void save(String data) {
+            System.out.println("Saving to MySQL: " + data);
+      }
+}
+
+class MongoDatabase implements Database {
+      @Override
+      public void save(String data) {
+            System.out.println("Saving to MongoDB: " + data);
+      }
+}
+
+class PostgreSQLDatabase implements Database {
+      @Override
+      public void save(String data) {
+            System.out.println("Saving to PostgreSQL: " + data);
+      }
+}
+
+class UserService {
+      private Database database;
+    
+      public UserService(Database database) {
+            this.database = database;
+      }
+    
+      public void saveUser(String user) {
+            database.save(user);
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            Database mysqlDB = new MySQLDatabase();
+            UserService service1 = new UserService(mysqlDB);
+            service1.saveUser("John");
+        
+            Database mongoDB = new MongoDatabase();
+            UserService service2 = new UserService(mongoDB);
+            service2.saveUser("Jane");
+        
+            Database postgresDB = new PostgreSQLDatabase();
+            UserService service3 = new UserService(postgresDB);
+            service3.saveUser("Bob");
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- `UserService` doesn't care about DB implementation
+- Swap databases anytime with zero code change
+- Easy to test with mocks
+- **Loose coupling = maintainable code!** 💪
+
+***
+
+## Design Patterns 🎨🔥
+
+Now for the **interview killers**. These patterns show up EVERYWHERE. Know them cold or get destroyed 😤.
+
+***
+
+### 1. Factory Pattern 🏭
+
+**Problem:** Creating objects with complex logic clutters your code 💀
+
+**Solution:** Factory class handles object creation! ✅
+
+```java
+interface Vehicle {
+      void drive();
+}
+
+class Car implements Vehicle {
+      @Override
+      public void drive() {
+            System.out.println("Driving a car 🚗");
+      }
+}
+
+class Bike implements Vehicle {
+      @Override
+      public void drive() {
+            System.out.println("Riding a bike 🏍️");
+      }
+}
+
+class Truck implements Vehicle {
+      @Override
+      public void drive() {
+            System.out.println("Driving a truck 🚚");
+      }
+}
+
+class VehicleFactory {
+      public static Vehicle createVehicle(String type) {
+            if (type.equalsIgnoreCase("car")) {
+                  return new Car();
+            } else if (type.equalsIgnoreCase("bike")) {
+                  return new Bike();
+            } else if (type.equalsIgnoreCase("truck")) {
+                  return new Truck();
+            }
+            throw new IllegalArgumentException("Unknown vehicle type: " + type);
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            Vehicle car = VehicleFactory.createVehicle("car");
+            Vehicle bike = VehicleFactory.createVehicle("bike");
+            Vehicle truck = VehicleFactory.createVehicle("truck");
+        
+            car.drive();
+            bike.drive();
+            truck.drive();
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- Creation logic in **ONE place**
+- Client code doesn't know about concrete classes
+- Easy to add new vehicles
+
+***
+
+### 2. Singleton Pattern 👑
+
+**Problem:** Need exactly **ONE instance** of a class (database connection, logger, config)
+
+**Solution:** Private constructor + static instance! ✅
+
+```java
+class DatabaseConnection {
+      private static DatabaseConnection instance;
+    
+      private DatabaseConnection() {
+            System.out.println("Database connection created!");
+      }
+    
+      public static synchronized DatabaseConnection getInstance() {
+            if (instance == null) {
+                  instance = new DatabaseConnection();
+            }
+            return instance;
+      }
+    
+      public void query(String sql) {
+            System.out.println("Executing query: " + sql);
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            DatabaseConnection db1 = DatabaseConnection.getInstance();
+            db1.query("SELECT * FROM users");
+        
+            DatabaseConnection db2 = DatabaseConnection.getInstance();
+            db2.query("SELECT * FROM orders");
+        
+            System.out.println(db1 == db2);
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- **Global access** to one instance
+- Saves memory
+- Thread-safe version prevents race conditions
+
+***
+
+### 3. Observer Pattern 👀📢
+
+**Problem:** When one object changes, **multiple objects** need to know
+
+**Solution:** Subject maintains list of observers, notifies them automatically!
+
+```java
+interface Observer {
+      void update(String message);
+}
+
+interface Subject {
+      void attach(Observer observer);
+      void detach(Observer observer);
+      void notifyObservers(String message);
+}
+
+class YouTubeChannel implements Subject {
+      private List<Observer> subscribers = new ArrayList<>();
+      private String channelName;
+    
+      public YouTubeChannel(String name) {
+            this.channelName = name;
+      }
+    
+      @Override
+      public void attach(Observer observer) {
+            subscribers.add(observer);
+            System.out.println("New subscriber added!");
+      }
+    
+      @Override
+      public void detach(Observer observer) {
+            subscribers.remove(observer);
+            System.out.println("Subscriber removed!");
+      }
+    
+      @Override
+      public void notifyObservers(String message) {
+            System.out.println("\n" + channelName + " uploaded: " + message);
+            for (Observer observer : subscribers) {
+                  observer.update(message);
+            }
+      }
+    
+      public void uploadVideo(String videoTitle) {
+            notifyObservers(videoTitle);
+      }
+}
+
+class Subscriber implements Observer {
+      private String name;
+    
+      public Subscriber(String name) {
+            this.name = name;
+      }
+    
+      @Override
+      public void update(String message) {
+            System.out.println(name + " received notification: " + message);
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            YouTubeChannel techChannel = new YouTubeChannel("TechMastery");
+        
+            Subscriber john = new Subscriber("John");
+            Subscriber alice = new Subscriber("Alice");
+            Subscriber bob = new Subscriber("Bob");
+        
+            techChannel.attach(john);
+            techChannel.attach(alice);
+            techChannel.attach(bob);
+        
+            techChannel.uploadVideo("System Design Tutorial");
+        
+            techChannel.detach(alice);
+        
+            techChannel.uploadVideo("Java Design Patterns");
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- **Loose coupling**
+- **Dynamic relationships**
+- Perfect for event systems, UI updates, notifications
+
+***
+
+### 4. Strategy Pattern 🎯🎲
+
+**Problem:** Different algorithms/behaviors, don't want messy if-else chains
+
+**Solution:** Encapsulate each algorithm in separate class, swap them at runtime!
+
+```java
+interface PaymentStrategy {
+      void pay(int amount);
+}
+
+class CreditCardPayment implements PaymentStrategy {
+      private String cardNumber;
+    
+      public CreditCardPayment(String cardNumber) {
+            this.cardNumber = cardNumber;
+      }
+    
+      @Override
+      public void pay(int amount) {
+            System.out.println("Paid ₹" + amount + " using Credit Card: " + cardNumber);
+      }
+}
+
+class UPIPayment implements PaymentStrategy {
+      private String upiId;
+    
+      public UPIPayment(String upiId) {
+            this.upiId = upiId;
+      }
+    
+      @Override
+      public void pay(int amount) {
+            System.out.println("Paid ₹" + amount + " using UPI: " + upiId);
+      }
+}
+
+class CashOnDelivery implements PaymentStrategy {
+      @Override
+      public void pay(int amount) {
+            System.out.println("₹" + amount + " to be paid in cash on delivery");
+      }
+}
+
+class ShoppingCart {
+      private PaymentStrategy paymentStrategy;
+    
+      public void setPaymentStrategy(PaymentStrategy strategy) {
+            this.paymentStrategy = strategy;
+      }
+    
+      public void checkout(int amount) {
+            if (paymentStrategy == null) {
+                  System.out.println("Please select a payment method!");
+                  return;
+            }
+            paymentStrategy.pay(amount);
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+            ShoppingCart cart = new ShoppingCart();
+        
+            cart.setPaymentStrategy(new CreditCardPayment("1234-5678-9012-3456"));
+            cart.checkout(5000);
+        
+            cart.setPaymentStrategy(new UPIPayment("john@paytm"));
+            cart.checkout(2500);
+        
+            cart.setPaymentStrategy(new CashOnDelivery());
+            cart.checkout(1500);
+      }
+}
+```
+
+**Why it rocks:** 🎯
+- **No if-else chains**
+- Easy to add new payment methods
+- Runtime flexibility
+- Testable strategies
+
+#### Factory vs Strategy — Not the Same 🧠
+
+| Pattern | Purpose | How It Works | Example Use Case |
+|---------|---------|--------------|------------------|
+| Factory | **Creates objects** based on input/config | Centralizes object creation logic | `VehicleFactory` makes Car/Bike/Truck |
+| Strategy | **Chooses behavior/algorithm** at runtime | Swaps algorithms via interface | `PaymentStrategy`: UPI/CreditCard/Cash |
+
+**Factory:** You get different objects.  
+**Strategy:** You get different behaviors for the same object.
+
+Factory = "What to build?"  
+Strategy = "How to act?"
+
+***
+
+## 🔥 Interview Survival Guide
+
+**When interviewer asks "Why use X pattern?"** always answer with:
+1. **Problem it solves**
+2. **Real-world example**
+3. **Trade-offs**
+
+**Example:**  
+**Q:** *"When would you use Factory Pattern?"*
+
+**Your Answer:**  
+*"When object creation logic is complex or needs to be centralized. For example, in a ride-sharing app like Uber, `VehicleFactory` creates Car, Bike, or Auto based on ride type. Benefits: centralized logic, easy to add new vehicle types. Trade-off: adds extra layer, might be overkill for simple object creation."* ✅💪
+
+***
+
+**Next Level:** Want me to give you **mock interview questions** combining SOLID + Design Patterns? Or ready for **design problem walkthroughs** (Design Parking Lot, Design Library System)? 🎯🚀
+
