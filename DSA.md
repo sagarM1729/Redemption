@@ -493,3 +493,30 @@ There you go. **10 most asked algorithms** with clean code and comments. If you 
 <span style="display:none"></span>
 
 <div align="center">⁂</div>
+
+Alright, here's **Fibonacci in 3 ways** – simple, short, and straight to the point 🔥💀
+
+***
+
+## **1. Iterative (BEST for interviews)** ⚡
+
+**Time: O(n), Space: O(1)** – Fastest and most memory efficient for Fibonacci.
+
+```cpp
+using namespace std;
+
+int fibonacci(int n) {
+    if (n <= 1) return n; // Base case: fib(0)=0, fib(1)=1
+    
+    int a = 0, b = 1; // First two Fibonacci numbers
+    
+    for (int i = 2; i <= n; i++) { // Loop from 2 to n
+        int next = a + b; // Calculate next Fibonacci number
+        a = b; // Move a forward
+        b = next; // Move b forward
+    }
+    
+    return b; // Return nth Fibonacci number
+}
+```
+
