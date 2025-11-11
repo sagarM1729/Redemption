@@ -137,37 +137,3 @@ Root interface: `Collection`. Main interfaces: `List` (ordered, duplicates allow
 
 <div align="center">⁂</div>
 
-: https://www.guvi.in/blog/java-interview-questions-and-answers/
-
-: https://www.interviewbit.com/java-interview-questions/
-
-: https://www.geeksforgeeks.org/java/java-interview-questions/
-
-: https://www.guvi.in/blog/40-java-interview-questions-for-freshers/
-
-: https://www.youtube.com/watch?v=EsBUD8nuVeE
-
-: https://www.whizlabs.com/blog/top-java-interview-questions/
-
-: https://www.youtube.com/watch?v=4Ib9amXl4gI
-
-: https://www.ccbp.in/blog/articles/java-8-coding-interview-questions-and-answers
-
-: https://www.datacamp.com/blog/java-interview-questions
-
-: https://www.vervecopilot.com/interview-questions/top-30-most-common-10-years-experience-java-interview-questions-you-should-prepare-for
-
-: https://codefinity.com/blog/The-80-Top-Java-Interview-Questions-and-Answers
-
-: https://www.whizlabs.com/blog/java-interview-questions-for-freshers/
-
-: https://www.digitalocean.com/community/tutorials/java-programming-interview-questions
-
-: https://www.upgrad.com/blog/java-interview-questions-answers/
-
-: https://www.javacodegeeks.com/java-interview-questions.html
-
-: https://www.reddit.com/r/SpringBoot/comments/1e64uic/140_java_interview_questions_answers_for_2_to_5/
-
-: https://www.simplilearn.com/tutorials/java-tutorial/java-interview-questions
-
