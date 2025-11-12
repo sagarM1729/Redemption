@@ -6,7 +6,7 @@ Alright, let's **destroy** these questions one by one 💀. No shortcuts, no mer
 
 ## 🔥 1. What is DBMS? Why not use files?
 
-**DBMS (Database Management System)** is software that manages databases and provides efficient storage, retrieval, and manipulation of data.[^1][^2]
+**DBMS (Database Management System)** is software that manages databases and provides efficient storage, retrieval, and manipulation of data.
 
 **Why files suck** 🗑️:
 
@@ -17,7 +17,7 @@ Alright, let's **destroy** these questions one by one 💀. No shortcuts, no mer
 - **No Concurrent Access**: Multiple users can't work simultaneously without conflicts
 - **No Backup/Recovery**: Manual backups, difficult to restore
 
-DBMS solves all this with centralized control, ACID transactions, security layers, and concurrent access management.[^3][^1]
+DBMS solves all this with centralized control, ACID transactions, security layers, and concurrent access management.
 
 ***
 
@@ -52,9 +52,9 @@ CREATE TABLE Users (
 );
 ```
 
-**Candidate Key** 🏆: Any column(s) that can be a PRIMARY KEY. Example: In Students table, both StudentID and Email can uniquely identify records - both are candidate keys.[^4][^3]
+**Candidate Key** 🏆: Any column(s) that can be a PRIMARY KEY. Example: In Students table, both StudentID and Email can uniquely identify records - both are candidate keys.
 
-**Super Key** 🦸: Any combination of columns that uniquely identifies a record. Example: {StudentID, Name}, {StudentID, Email}, {StudentID} are all super keys.[^3]
+**Super Key** 🦸: Any combination of columns that uniquely identifies a record. Example: {StudentID, Name}, {StudentID, Email}, {StudentID} are all super keys.
 
 ***
 
@@ -66,7 +66,7 @@ Normalization is the process of organizing database tables to reduce data redund
 
 **1NF (First Normal Form)** - Atomic Values Only ⚛️
 
-**Rule**: Each cell must contain single atomic value. No repeating groups or arrays.[^5][^6]
+**Rule**: Each cell must contain single atomic value. No repeating groups or arrays.
 
 **Before 1NF** ❌:
 
@@ -90,7 +90,7 @@ Normalization is the process of organizing database tables to reduce data redund
 
 **2NF (Second Normal Form)** - No Partial Dependency 🎯
 
-**Rule**: Must be in 1NF + No partial dependency (non-key attributes must depend on ENTIRE primary key, not part of it).[^6][^5]
+**Rule**: Must be in 1NF + No partial dependency (non-key attributes must depend on ENTIRE primary key, not part of it).
 
 **Before 2NF** ❌ (Composite key: StudentID + CourseID):
 
@@ -124,7 +124,7 @@ Normalization is the process of organizing database tables to reduce data redund
 
 **3NF (Third Normal Form)** - No Transitive Dependency 🚫
 
-**Rule**: Must be in 2NF + No transitive dependency (non-key attributes can't depend on other non-key attributes).[^5][^6]
+**Rule**: Must be in 2NF + No transitive dependency (non-key attributes can't depend on other non-key attributes).
 
 **Before 3NF** ❌:
 
@@ -210,12 +210,12 @@ CREATE TABLE Employees (
 
 **Explanation** 🎓:
 
-- **NOT NULL**: Column can't be empty[^3]
-- **UNIQUE**: No duplicate values (NULL allowed once)[^3]
-- **CHECK**: Validates data against condition[^3]
-- **DEFAULT**: Sets default value if none provided[^3]
-- **PRIMARY KEY**: Unique identifier (NOT NULL + UNIQUE)[^3]
-- **FOREIGN KEY**: Maintains referential integrity between tables[^3]
+- **NOT NULL**: Column can't be empty
+- **UNIQUE**: No duplicate values (NULL allowed once)
+- **CHECK**: Validates data against condition
+- **DEFAULT**: Sets default value if none provided
+- **PRIMARY KEY**: Unique identifier (NOT NULL + UNIQUE)
+- **FOREIGN KEY**: Maintains referential integrity between tables
 
 ***
 
@@ -338,7 +338,7 @@ INNER JOIN Employees e2 ON e1.ManagerID = e2.EmployeeID;
 
 ## ❓ 6. Difference between WHERE and HAVING
 
-**WHERE** filters rows **BEFORE** grouping. **HAVING** filters groups **AFTER** grouping.[^1][^7]
+**WHERE** filters rows **BEFORE** grouping. **HAVING** filters groups **AFTER** grouping.
 
 ```sql
 -- WHERE: Filters before GROUP BY
@@ -442,7 +442,7 @@ HAVING COUNT(*) > 10;  -- Only products with 10+ sales
 
 ## 🎭 8. Subqueries and Nested Queries
 
-**Subquery** = Query inside another query.[^1][^7]
+**Subquery** = Query inside another query.
 
 **Example 1**: Find employees earning more than average salary:
 
@@ -521,7 +521,7 @@ DROP TABLE Employees;  -- Table completely gone
 
 ## ⚡ 10. What is Indexing? Types?
 
-**Indexing** creates a data structure (like a book index) to speed up data retrieval. Without index, database scans entire table (SLOW). With index, database jumps directly to data (FAST).[^7][^1][^3]
+**Indexing** creates a data structure (like a book index) to speed up data retrieval. Without index, database scans entire table (SLOW). With index, database jumps directly to data (FAST).
 
 **Types** 🎯:
 
@@ -552,7 +552,7 @@ CREATE NONCLUSTERED INDEX idx_emp_name
 ON Employees(Name);
 ```
 
-**Key Differences**:[^8][^9]
+**Key Differences**:
 
 
 | Feature | Clustered | Non-Clustered |
@@ -563,14 +563,14 @@ ON Employees(Name);
 | **Data storage** | Leaf has data | Leaf has pointers |
 | **Physical order** | Changes data order | Doesn't affect order |
 
-**Other index types**:[^7]
+**Other index types**:
 
 - **Unique Index**: Ensures no duplicate values
 - **Composite Index**: Index on multiple columns
 - **Full-text Index**: For text searching
 - **Bitmap Index**: For low-cardinality columns (e.g., Gender)
 
-[^9][^8]
+
 
 ***
 
@@ -644,7 +644,7 @@ WHERE JoinDate >= '2024-01-01' AND JoinDate < '2025-01-01';
 
 **ACID** = **Atomicity, Consistency, Isolation, Durability** 🔬
 
-Ensures database transactions are reliable.[^10][^11][^12]
+Ensures database transactions are reliable.
 
 ***
 
@@ -668,7 +668,7 @@ UPDATE Accounts SET Balance = Balance + 500 WHERE AccountID = 2;
 COMMIT;  -- If both succeed
 ```
 
-If power fails after first UPDATE, **ROLLBACK** ensures money isn't lost from Account A.[^11][^10]
+If power fails after first UPDATE, **ROLLBACK** ensures money isn't lost from Account A.
 
 ***
 
@@ -684,7 +684,7 @@ If power fails after first UPDATE, **ROLLBACK** ensures money isn't lost from Ac
 INSERT INTO Students (Name, Age) VALUES ('Rahul', 15);  -- REJECTED
 ```
 
-Database ensures total money before = total money after transaction.[^13][^10]
+Database ensures total money before = total money after transaction.
 
 ***
 
@@ -700,7 +700,7 @@ Database ensures total money before = total money after transaction.[^13][^10]
 -- Isolation ensures only ONE gets it, not both
 ```
 
-**Isolation Levels**:[^13]
+**Isolation Levels**:
 
 1. Read Uncommitted (lowest)
 2. Read Committed
@@ -721,11 +721,11 @@ Database ensures total money before = total money after transaction.[^13][^10]
 COMMIT;  -- Even if server crashes next second, payment is recorded
 ```
 
-Uses transaction logs and backups.[^10][^13]
+Uses transaction logs and backups.
 
 ***
 
-**Complete ACID Example**:[^11][^10]
+**Complete ACID Example**:
 
 **What we did in this example:**
 
@@ -767,7 +767,7 @@ END
 
 ## 💳 13. What is a Transaction?
 
-**Transaction** = Sequence of operations executed as **single logical unit**.[^1]
+**Transaction** = Sequence of operations executed as **single logical unit**.
 
 **Example** - Online Shopping 🛒:
 
@@ -777,7 +777,7 @@ END
 4. Charge payment
 5. Send confirmation email
 
-**Either ALL succeed or ALL fail**.[^1]
+**Either ALL succeed or ALL fail**.
 
 **Transaction Commands**:
 
@@ -801,7 +801,7 @@ ROLLBACK TO sp1;  -- Rollback to this point only
 
 ## 🔒 14. Concurrency Control \& Deadlock
 
-**Concurrency Control** = Managing simultaneous database access by multiple users.[^4][^3]
+**Concurrency Control** = Managing simultaneous database access by multiple users.
 
 **Problems without it** 😱:
 
@@ -821,7 +821,7 @@ ROLLBACK TO sp1;  -- Rollback to this point only
 
 **Deadlock** 💀:
 
-Two transactions waiting for each other's locks = **DEADLOCK**.[^4][^3]
+Two transactions waiting for each other's locks = **DEADLOCK**.
 
 **Example**:
 
@@ -839,7 +839,7 @@ Wait for Row B...       Wait for Row A...
 - **Wound-Wait Scheme**: Older transaction kills younger
 - **Deadlock Detection Algorithm**: Database detects cycle and kills one transaction
 
-[^4][^3]
+
 
 ***
 
@@ -862,7 +862,7 @@ WHERE Salary > 80000;
 SELECT * FROM HighEarners WHERE Department = 'IT';
 ```
 
-**Benefits**: Security (hide sensitive columns like SSN, restrict data access), simplify complex queries (join multiple tables once, reuse everywhere), reusability, logical data independence.[^7][^1]
+**Benefits**: Security (hide sensitive columns like SSN, restrict data access), simplify complex queries (join multiple tables once, reuse everywhere), reusability, logical data independence.
 
 ***
 
@@ -884,7 +884,7 @@ END;
 EXEC GetEmployeesByDept @DeptID = 10;
 ```
 
-**Benefits**: Performance (precompiled and execution plan cached), security (grant execute permission without table access), reusability, reduce network traffic (send procedure name instead of full query), centralized business logic.[^1]
+**Benefits**: Performance (precompiled and execution plan cached), security (grant execute permission without table access), reusability, reduce network traffic (send procedure name instead of full query), centralized business logic.
 
 ***
 
@@ -914,7 +914,7 @@ END;
 - **AFTER triggers**: Execute after the operation (auditing, cascading changes)
 - **INSTEAD OF triggers**: Replace the original operation
 
-**Use cases**: Audit logging (track all changes), enforce complex business rules (salary can't decrease), maintain derived/calculated data, prevent invalid operations, cascading updates/deletes.[^7][^1]
+**Use cases**: Audit logging (track all changes), enforce complex business rules (salary can't decrease), maintain derived/calculated data, prevent invalid operations, cascading updates/deletes.
 
 ***
 
@@ -970,7 +970,7 @@ WHERE Rank = 3;
 - **DENSE_RANK()**: 1, 2, 2, 3 (no gaps)
 - **ROW_NUMBER()**: 1, 2, 3, 4 (unique even for ties)
 
-**For nth highest, use DENSE_RANK**.[^7]
+**For nth highest, use DENSE_RANK**.
 
 ***
 
@@ -1301,7 +1301,7 @@ CREATE TABLE Reviews (
 - Orders **1:1** Payments (one payment per order)
 - Products **1:M** Reviews (one product, many reviews)
 
-[^14][^3]
+
 
 ***
 
@@ -1449,39 +1449,39 @@ Stop reading, start **DOING** 🚀.
 Set up a database, populate with sample data, and practice these 50 times until you can write them blindfolded. That's how you'll get placed, not by bookmarking this answer 💀.
 
 Now **GET TO WORK!** ⚡
-<span style="display:none">[^15][^16]</span>
+<span style="display:none"></span>
 
 <div align="center">⁂</div>
 
-[^1]: https://www.guvi.in/blog/database-management-interview-questions/
+: https://www.guvi.in/blog/database-management-interview-questions/
 
-[^2]: https://www.interviewbit.com/dbms-interview-questions/
+: https://www.interviewbit.com/dbms-interview-questions/
 
-[^3]: https://www.datacamp.com/blog/dbms-interview-questions
+: https://www.datacamp.com/blog/dbms-interview-questions
 
-[^4]: https://www.vinsys.com/blog/dbms-interview-questions
+: https://www.vinsys.com/blog/dbms-interview-questions
 
-[^5]: https://www.digitalocean.com/community/tutorials/database-normalization
+: https://www.digitalocean.com/community/tutorials/database-normalization
 
-[^6]: https://www.freecodecamp.org/news/database-normalization-1nf-2nf-3nf-table-examples/
+: https://www.freecodecamp.org/news/database-normalization-1nf-2nf-3nf-table-examples/
 
-[^7]: https://learninglabb.com/sql-interview-questions-for-freshers/
+: https://learninglabb.com/sql-interview-questions-for-freshers/
 
-[^8]: https://www.sqlshack.com/what-is-the-difference-between-clustered-and-non-clustered-indexes-in-sql-server/
+: https://www.sqlshack.com/what-is-the-difference-between-clustered-and-non-clustered-indexes-in-sql-server/
 
-[^9]: https://www.tutorialspoint.com/difference-between-clustered-index-and-non-clustered-index-in-sql-server
+: https://www.tutorialspoint.com/difference-between-clustered-index-and-non-clustered-index-in-sql-server
 
-[^10]: https://www.geeksforgeeks.org/dbms/acid-properties-in-dbms/
+: https://www.geeksforgeeks.org/dbms/acid-properties-in-dbms/
 
-[^11]: https://dotnettutorials.net/lesson/acid-properties-in-sql-server/
+: https://dotnettutorials.net/lesson/acid-properties-in-sql-server/
 
-[^12]: https://www.databricks.com/glossary/acid-transactions
+: https://www.databricks.com/glossary/acid-transactions
 
-[^13]: https://reliasoftware.com/blog/acid-properties-in-dbms
+: https://reliasoftware.com/blog/acid-properties-in-dbms
 
-[^14]: https://entri.app/blog/hcl-sql-interview-questions/
+: https://entri.app/blog/hcl-sql-interview-questions/
 
-[^15]: https://www.mongodb.com/resources/basics/databases/acid-transactions
+: https://www.mongodb.com/resources/basics/databases/acid-transactions
 
-[^16]: https://www.datacamp.com/blog/acid-transactions
+: https://www.datacamp.com/blog/acid-transactions
 
