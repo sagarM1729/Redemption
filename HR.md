@@ -1,6 +1,6 @@
 <img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
-# hr interview prep ,,, it frehers ,, pune ,, give all imp question ,, behaviour and everything in hr round ,, make sure all top questions are covered
+
 
 Alright, listen up 🔥 You're a B.Tech IT student from Walchand—decent college, decent CGPA (7.05), solid projects (ChainGuard and ForeCastle look legit), but your resume is your **ticket**, not your guarantee. HR rounds are where most freshers fumble because they underestimate the psychology game. Let me break down **EVERY critical HR question** you need to dominate in Pune IT fresher interviews. This isn't fluff—this is combat prep 💪
 
