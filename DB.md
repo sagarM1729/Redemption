@@ -523,53 +523,53 @@ DROP TABLE Employees;  -- Table completely gone
 
 **Indexing** creates a data structure (like a book index) to speed up data retrieval. Without index, database scans entire table (SLOW). With index, database jumps directly to data (FAST).
 
-**Types** 🎯:
+**🚀 Top 5 Types of Indexing (Must Know)**
 
-**Clustered Index** 📚:
+**1️⃣ Primary Index**
 
-- Physically **sorts** and **stores** table data based on key
-- Leaf nodes contain **actual data**
-- **Only ONE** per table
-- Created automatically on PRIMARY KEY
-- Faster for range queries
-- Example: Dictionary sorted alphabetically
+📌 Created automatically on PRIMARY KEY
 
-```sql
-CREATE CLUSTERED INDEX idx_emp_id 
-ON Employees(EmployeeID);
-```
+📌 Unique, sorted, and disallows NULLs
 
-**Non-Clustered Index** 🔖:
+📌 Usually clustered, so the table is stored in the same order
 
-- Creates **separate structure** with pointers to actual data
-- Leaf nodes contain **pointers**, not actual data
-- **Multiple** allowed per table
-- Requires extra storage space
-- Example: Book index at the back
+👉 Fastest lookups because the data is physically arranged.
+
+**2️⃣ Secondary Index**
+
+📌 Additional index created manually
+
+📌 Non-clustered, so it does not change table order
+
+📌 Ideal for columns frequently used in WHERE or JOIN clauses
+
+👉 Most commonly used index in DBMS.
+
+**3️⃣ Clustered Index**
+
+📌 Sorts the actual table (physical order equals index order)
+
+📌 Only one clustered index allowed per table
+
+📌 In MySQL the PRIMARY KEY becomes the clustered index
+
+👉 Searching is very fast because data is already sorted.
+
+**4️⃣ Non-Clustered Index**
+
+📌 Does not sort the table itself
+
+📌 Stores a separate index plus pointers to data pages
+
+📌 Multiple non-clustered indexes can exist on a table
+
+👉 Perfect for fast WHERE clause searches without rearranging the table.
+
 
 ```sql
 CREATE NONCLUSTERED INDEX idx_emp_name 
 ON Employees(Name);
 ```
-
-**Key Differences**:
-
-
-| Feature | Clustered | Non-Clustered |
-| :-- | :-- | :-- |
-| **Per table** | Only 1 | Multiple |
-| **Storage** | No extra space | Extra space needed |
-| **Speed** | Faster | Slower (extra lookup) |
-| **Data storage** | Leaf has data | Leaf has pointers |
-| **Physical order** | Changes data order | Doesn't affect order |
-
-**Other index types**:
-
-- **Unique Index**: Ensures no duplicate values
-- **Composite Index**: Index on multiple columns
-- **Full-text Index**: For text searching
-- **Bitmap Index**: For low-cardinality columns (e.g., Gender)
-
 
 
 ***
@@ -1452,36 +1452,4 @@ Now **GET TO WORK!** ⚡
 <span style="display:none"></span>
 
 <div align="center">⁂</div>
-
-: https://www.guvi.in/blog/database-management-interview-questions/
-
-: https://www.interviewbit.com/dbms-interview-questions/
-
-: https://www.datacamp.com/blog/dbms-interview-questions
-
-: https://www.vinsys.com/blog/dbms-interview-questions
-
-: https://www.digitalocean.com/community/tutorials/database-normalization
-
-: https://www.freecodecamp.org/news/database-normalization-1nf-2nf-3nf-table-examples/
-
-: https://learninglabb.com/sql-interview-questions-for-freshers/
-
-: https://www.sqlshack.com/what-is-the-difference-between-clustered-and-non-clustered-indexes-in-sql-server/
-
-: https://www.tutorialspoint.com/difference-between-clustered-index-and-non-clustered-index-in-sql-server
-
-: https://www.geeksforgeeks.org/dbms/acid-properties-in-dbms/
-
-: https://dotnettutorials.net/lesson/acid-properties-in-sql-server/
-
-: https://www.databricks.com/glossary/acid-transactions
-
-: https://reliasoftware.com/blog/acid-properties-in-dbms
-
-: https://entri.app/blog/hcl-sql-interview-questions/
-
-: https://www.mongodb.com/resources/basics/databases/acid-transactions
-
-: https://www.datacamp.com/blog/acid-transactions
 
